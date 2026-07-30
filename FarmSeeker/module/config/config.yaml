@@ -1,0 +1,13 @@
+# config.yaml
+perception_reason_seg:
+  sam_checkpoint: "FarmMind_plus/module/sam2.1_hiera_large.pt"
+  sam_cfg: "configs/sam2.1/sam2.1_hiera_l.yaml"
+  database_temporal: "dataset/temporal_dir"
+  database_enlarge: "dataset/enlarge_dir"
+  crop_temporal_dir: "save_path for crop temporal image"
+  crop_enlarge_dir: "save_path for crop enlarge image"
+  model_path: "reason model path"
+  device: "cuda"
+  data_type: "torch.bfloat16"
+  save_path: "save pred_mask path"
+  threshold: 0.3

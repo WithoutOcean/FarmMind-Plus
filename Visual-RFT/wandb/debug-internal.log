@@ -1,0 +1,10 @@
+{"time":"2026-01-23T16:33:24.706723361+08:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2026-01-23T16:33:24.706813557+08:00","level":"INFO","msg":"created symlink","path":"/g0001sr/why/Visual-RFT-origin/wandb/offline-run-20260123_163324-jgx8nm7y/logs/debug-core.log"}
+{"time":"2026-01-23T16:33:24.70824391+08:00","level":"ERROR","msg":"monitor: gpu: error starting command /g0001sr/why/visualrf/lib/python3.10/site-packages/wandb/bin/nvidia_gpu_stats --pid=1783 --ppid=2156 --interval=10.000000: fork/exec /g0001sr/why/visualrf/lib/python3.10/site-packages/wandb/bin/nvidia_gpu_stats: permission denied"}
+{"time":"2026-01-23T16:33:24.721980306+08:00","level":"INFO","msg":"created new stream","id":"jgx8nm7y"}
+{"time":"2026-01-23T16:33:24.722038007+08:00","level":"INFO","msg":"stream: started","id":"jgx8nm7y"}
+{"time":"2026-01-23T16:33:24.722182685+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"jgx8nm7y"}}
+{"time":"2026-01-23T16:33:24.722091875+08:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"jgx8nm7y"}}
+{"time":"2026-01-23T16:33:24.722113586+08:00","level":"INFO","msg":"sender: started","stream_id":{"value":"jgx8nm7y"}}
+{"time":"2026-01-23T16:33:24.764079174+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2026-01-23T16:33:24.809119979+08:00","level":"INFO","msg":"Starting system monitor"}
