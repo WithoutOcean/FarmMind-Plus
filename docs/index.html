@@ -881,52 +881,38 @@
         </div>
       </div>
     </section>
-
     <section id="overview">
       <div class="container">
         <div class="section-heading">
           <div class="section-kicker">Motivation</div>
           <p>
-            Segmentation ambiguity can originate from insufficient observation,
-            not merely insufficient representation.
+            Is segmentation failure really just because the model does not see well enough?
           </p>
         </div>
-
+    
         <div class="card abstract-card">
-          Existing farmland segmentation methods typically reason only within the
-          current image and implicitly assume that it contains sufficient visual
-          evidence. However, farmland appearance varies with phenology and spatial
-          context, making instantaneous local observations unreliable in ambiguous
-          scenes. <strong>FarmSeeker reframes segmentation as a dynamic decision
-          process:</strong> it identifies ambiguous regions, determines which
-          external evidence is needed, retrieves additional spatial or temporal
-          imagery, and uses that evidence to refine the mask.
-        </div>
-
-        <div class="paradigm-grid">
-          <article class="paradigm old">
-            <span class="paradigm-label">Conventional paradigm</span>
-            <h3>Think within-image</h3>
-            <p>
-              Enhance representations while remaining restricted to evidence
-              already present in a single observation.
-            </p>
-          </article>
-
-          <div class="versus">versus</div>
-
-          <article class="paradigm new">
-            <span class="paradigm-label">FarmSeeker paradigm</span>
-            <h3>Think with extra-image</h3>
-            <p>
-              Acquire task-relevant spatio-temporal information on demand and
-              reason across observations to resolve ambiguity.
-            </p>
-          </article>
+          <p>
+            <strong>The answer may not be in the current image at all.</strong>
+            A natural solution is to seek extra information gain—not by looking at
+            more images indiscriminately, but by seeing the most critical evidence
+            when it is truly needed.
+          </p>
+    
+          <p>
+            Limited by observation time and spatial field of view, a single image
+            may not contain the complete evidence required for reliable farmland
+            recognition. FarmSeeker neither repeatedly mines the current image nor
+            blindly introduces more inputs. Instead, it first localizes segmentation
+            ambiguities, determines whether temporal cues or broader spatial context
+            are missing, and then acquires on demand the extra spatio-temporal
+            evidence expected to provide the greatest information gain. The newly
+            acquired evidence is ultimately translated into more reliable farmland
+            segmentation results.
+          </p>
         </div>
       </div>
     </section>
-
+   
     <section id="method">
       <div class="container">
         <div class="section-heading">
@@ -1088,10 +1074,7 @@
     <section id="results">
       <div class="container">
         <div class="section-heading">
-          <div class="section-kicker">Segmentation Results</div>
-    
-          <h2>Qualitative farmland segmentation results</h2>
-    
+          <div class="section-kicker">Results</div>
           <p>
             Qualitative comparisons demonstrate the effectiveness of FarmSeeker
             in resolving both spatio-temporal ambiguity and challenging farmland
@@ -1146,7 +1129,6 @@
       <div class="container">
         <div class="section-heading">
           <div class="section-kicker">Citation</div>
-          <h2>Cite FarmSeeker</h2>
           <p>
             The final BibTeX entry will be updated after the paper record becomes public.
           </p>
