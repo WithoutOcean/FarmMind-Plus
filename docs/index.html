@@ -474,7 +474,52 @@
       padding: 26px;
       overflow-x: auto;
     }
+    .results-gallery {
+      display: grid;
+      gap: 30px;
+    }
     
+    .result-figure {
+      margin: 0;
+      padding: 16px;
+      overflow: hidden;
+    }
+    
+    .result-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      background: #ffffff;
+    }
+    
+    .result-caption {
+      padding: 17px 10px 5px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+      text-align: left;
+    }
+    
+    .result-caption strong {
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+@media (max-width: 520px) {
+  .result-figure {
+    padding: 8px;
+  }
+
+  .result-figure img {
+    border-radius: 10px;
+  }
+
+  .result-caption {
+    padding: 13px 6px 4px;
+    font-size: 14px;
+  }
+}
     @media (max-width: 980px) {
       .benchmark-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1039,72 +1084,60 @@
         </div>
       </div>
     </section>
-
-
     
     <section id="results">
       <div class="container">
         <div class="section-heading">
-          <div class="section-kicker">Results</div>
+          <div class="section-kicker">Segmentation Results</div>
+    
+          <h2>Qualitative farmland segmentation results</h2>
+    
           <p>
-            Intermediate-capability evaluation and ambiguous-subset results
-            demonstrate the value of on-demand evidence acquisition.
+            Qualitative comparisons demonstrate the effectiveness of FarmSeeker
+            in resolving both spatio-temporal ambiguity and challenging farmland
+            boundaries across diverse agricultural regions.
           </p>
         </div>
-
-        <div class="metrics-grid">
-          <div class="card metric">
-            <div class="metric-name">Ambiguity F1@0.5</div>
-            <div class="metric-value">60.23%</div>
-            <div class="metric-note">Ambiguity localization</div>
-          </div>
-
-          <div class="card metric">
-            <div class="metric-name">Tool-Calling Accuracy</div>
-            <div class="metric-value">90.79%</div>
-            <div class="metric-note">Evidence selection</div>
-          </div>
-
-          <div class="card metric">
-            <div class="metric-name">Reasoning Accuracy</div>
-            <div class="metric-value">88.72%</div>
-            <div class="metric-note">Multi-image collaboration</div>
-          </div>
-
-          <div class="card metric">
-            <div class="metric-name">Inference Mode</div>
-            <div class="metric-value">On Demand</div>
-            <div class="metric-note">No indiscriminate retrieval</div>
-          </div>
-        </div>
-
-        <div class="card comparison">
-          <table>
-            <thead>
-              <tr>
-                <th>Ambiguous subset</th>
-                <th>Recall</th>
-                <th>IoU</th>
-                <th>Interpretation</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td>Initial segmentation</td>
-                <td>67.34%</td>
-                <td>63.95%</td>
-                <td>Single-image observation</td>
-              </tr>
-
-              <tr>
-                <td class="best">FarmSeeker</td>
-                <td class="best">83.45%</td>
-                <td class="best">78.62%</td>
-                <td class="best">Evidence-guided correction</td>
-              </tr>
-            </tbody>
-          </table>
+    
+        <div class="results-gallery">
+          <figure class="card result-figure">
+            <img
+              src="assets/images/ambiguity_Segmentation.jpg"
+              alt="Segmentation results under spatio-temporal ambiguity"
+              loading="lazy"
+            >
+    
+            <figcaption class="result-caption">
+              <strong>Segmentation results under spatio-temporal ambiguity.</strong>
+              Green indicates correctly segmented farmland regions, while red
+              indicates incorrectly segmented regions.
+            </figcaption>
+          </figure>
+    
+          <figure class="card result-figure">
+            <img
+              src="assets/images/Qualitative_comparison.jpg"
+              alt="Qualitative comparison of FarmSeeker and mainstream farmland segmentation methods"
+              loading="lazy"
+            >
+    
+            <figcaption class="result-caption">
+              <strong>
+                Qualitative comparison of farmland segmentation between FarmSeeker
+                and mainstream methods across different agricultural regions.
+              </strong>
+              (a) Selected segmentation results on the Northeast China Plain.
+              (b) Selected segmentation results on the Huang-Huai-Hai Plain.
+              (c) Selected segmentation results in the Northern Arid and Semi-arid Region.
+              (d) Selected segmentation results on the Loess Plateau.
+              (e) Selected segmentation results in South China Areas.
+              (f) Selected segmentation results in the Sichuan Basin.
+              (g) Selected segmentation results on the Yunnan-Guizhou Plateau.
+              (h) Selected segmentation results on the Middle-Lower Yangtze Plain.
+              Red circles indicate regions with notable differences. Green masks
+              represent farmland, while black denotes the non-farmland background.
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
