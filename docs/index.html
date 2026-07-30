@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FarmSeeker: A Farmland Segmentation Agent Driven by Spatio-Temporal Information Gain.">
+  <meta name="theme-color" content="#173f35">
+  <title>FarmSeeker | Project Page</title>
+
+  <style>
+    :root {
+      --ink: #13251f;
+      --muted: #62736b;
+      --green: #1f725e;
+      --green-dark: #173f35;
+      --green-soft: #e9f4ef;
+      --gold: #b98232;
+      --surface: #ffffff;
+      --line: #dbe6e0;
+      --shadow: 0 24px 70px rgba(23, 63, 53, 0.11);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% -10%, rgba(31, 114, 94, 0.13), transparent 34rem),
+        radial-gradient(circle at 92% 4%, rgba(185, 130, 50, 0.10), transparent 28rem),
+        #fbfdfc;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img,
+    video {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(219, 230, 224, 0.9);
+      background: rgba(251, 253, 252, 0.86);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--green-dark);
+      font-weight: 850;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #fff;
+      background: linear-gradient(145deg, #247c67, #173f35);
+      box-shadow: 0 9px 23px rgba(23, 63, 53, 0.22);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      color: #42574e;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+    }
+
+    .hero {
+      padding: 92px 0 58px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 22px;
+      padding: 8px 14px;
+      border: 1px solid #c9dfd5;
+      border-radius: 999px;
+      color: var(--green-dark);
+      background: rgba(233, 244, 239, 0.75);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 12px 8px;
+        font-size: clamp(36px, 7vw, 80px);
+        line-height: 1.12;
+        letter-spacing: -0.045em;
+        overflow: visible;
+      }
+
+    .gradient-text {
+      color: transparent;
+      background: linear-gradient(110deg, #173f35 8%, #23836a 60%, #b98232 108%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .subtitle {
+      max-width: 900px;
+      margin: 24px auto 0;
+      color: #52675e;
+      font-size: clamp(18px, 2.45vw, 26px);
+      line-height: 1.45;
+      letter-spacing: -0.018em;
+    }
+
+    .authors {
+      margin: 25px 0 0;
+      color: #40544b;
+      font-size: 16px;
+    }
+
+    .authors strong {
+      color: var(--green-dark);
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      min-height: 45px;
+      padding: 0 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #cfddd6;
+      border-radius: 999px;
+      color: var(--green-dark);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 9px 26px rgba(23, 63, 53, 0.06);
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: #9bbcad;
+      box-shadow: 0 14px 34px rgba(23, 63, 53, 0.12);
+    }
+
+    .button.primary {
+      color: #fff;
+      border-color: var(--green-dark);
+      background: var(--green-dark);
+    }
+
+    .button.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .hero-note {
+      margin-top: 14px;
+      color: #7a8982;
+      font-size: 13px;
+    }
+
+    section {
+      padding: 46px 0;
+    }
+
+    .section-heading {
+      max-width: 820px;
+      margin: 0 auto 29px;
+      text-align: center;
+    }
+
+    .section-kicker {
+      margin-bottom: 7px;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 47px);
+      line-height: 1.14;
+      letter-spacing: -0.04em;
+    }
+
+    .section-heading p {
+      margin: 13px auto 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .card {
+      border: 1px solid rgba(210, 224, 217, 0.98);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.93);
+      box-shadow: var(--shadow);
+    }
+
+    .demo-card {
+      width: 100%;
+      max-width: 100%;
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .video-shell {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #10251e;
+    }
+
+    /* 视频加载前保持占位区域；加载后由视频原始比例决定卡片高度 */
+    .video-shell:not(.video-ready) {
+      aspect-ratio: 16 / 9;
+    }
+
+    .video-shell video {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      object-fit: contain;
+      background: #10251e;
+    }
+
+    .video-fallback {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      color: #f5fffb;
+      text-align: center;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(35, 123, 102, 0.96), rgba(23, 63, 53, 0.97));
+    }
+
+    .play-icon {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 19px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.17);
+    }
+
+    .play-icon::after {
+      content: "";
+      width: 0;
+      height: 0;
+      margin-left: 5px;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 19px solid #fff;
+    }
+
+    .video-fallback h3 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 38px);
+      letter-spacing: -0.03em;
+    }
+
+    .video-fallback p {
+      margin: 10px 0 0;
+      color: rgba(245, 255, 250, 0.78);
+    }
+
+    .video-caption {
+      padding: 17px 6px 2px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .abstract-card {
+      padding: clamp(25px, 4vw, 48px);
+      color: #42564d;
+      font-size: 17px;
+    }
+
+    .abstract-card strong {
+      color: var(--green-dark);
+    }
+
+    .paradigm-grid {
+      display: grid;
+      grid-template-columns: 1fr 70px 1fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 24px;
+    }
+
+    .paradigm {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+    }
+
+    .paradigm.old {
+      opacity: 0.8;
+    }
+
+    .paradigm.new {
+      border-color: #a8cab9;
+      background: linear-gradient(160deg, #fff, #eff8f4);
+      box-shadow: 0 16px 40px rgba(23, 63, 53, 0.09);
+    }
+
+    .paradigm-label {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: #5e6f67;
+      background: #edf1ef;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .paradigm.new .paradigm-label {
+      color: var(--green-dark);
+      background: #dcefe7;
+    }
+
+    .paradigm h3 {
+      margin: 17px 0 8px;
+      font-size: 24px;
+      line-height: 1.25;
+    }
+
+    .paradigm p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .versus {
+      display: grid;
+      place-items: center;
+      color: #8a9992;
+      font-size: 14px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .method-figure {
+      margin-top: 26px;
+      padding: 18px;
+      overflow: hidden;
+    }
+    
+    .method-figure img {
+      width: 100%;
+      border-radius: 18px;
+      background: #ffffff;
+    }
+    
+    .figure-caption {
+      padding: 15px 6px 2px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+    
+    .benchmark-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+    
+    .benchmark-card {
+      padding: 24px;
+      text-align: left;
+    }
+    
+    .benchmark-card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+    
+    .benchmark-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    
+    .benchmark-card .big {
+      margin-top: 8px;
+      color: var(--green-dark);
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+    
+    .benchmark-table {
+      margin-top: 18px;
+      padding: 26px;
+      overflow-x: auto;
+    }
+    
+    @media (max-width: 980px) {
+      .benchmark-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 520px) {
+      .benchmark-grid {
+        grid-template-columns: 1fr;
+      }
+    } 
+    .step {
+      min-height: 210px;
+      padding: 24px 20px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 12px 32px rgba(23, 63, 53, 0.055);
+    }
+
+    .step-number {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      color: #fff;
+      background: var(--green-dark);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .step h3 {
+      margin: 17px 0 8px;
+      font-size: 18px;
+      line-height: 1.28;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .metric {
+      padding: 25px;
+      text-align: center;
+    }
+
+    .metric-name {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .metric-value {
+      margin-top: 8px;
+      color: var(--green-dark);
+      font-size: 35px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .metric-note {
+      margin-top: 2px;
+      color: #71817a;
+      font-size: 13px;
+    }
+
+    .comparison {
+      margin-top: 18px;
+      padding: 26px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 620px;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: #52645c;
+      background: #f3f7f5;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .best {
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .resources {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .resource {
+      min-height: 230px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .resource-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: var(--green-dark);
+      background: var(--green-soft);
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .resource h3 {
+      margin: 17px 0 8px;
+      font-size: 22px;
+    }
+
+    .resource p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .resource a,
+    .resource span {
+      margin-top: auto;
+      padding-top: 22px;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .citation {
+      padding: 28px;
+      overflow: hidden;
+    }
+
+    .copy-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 12px;
+    }
+
+    .copy-button {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--green-dark);
+      background: #fff;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    pre {
+      margin: 0;
+      padding: 22px;
+      overflow-x: auto;
+      border-radius: 16px;
+      color: #dff3ea;
+      background: #132d25;
+      font: 13px/1.65 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    footer {
+      padding: 35px 0 56px;
+      color: #718179;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .pipeline {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .resources {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 68px;
+      }
+
+      .paradigm-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .versus {
+        min-height: 30px;
+      }
+
+      .pipeline {
+        grid-template-columns: 1fr;
+      }
+
+      .step {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 520px) {
+      h1 {
+        padding: 0 4px 8px;
+        font-size: clamp(34px, 11vw, 48px);
+        letter-spacing: -0.05em;
+      }
+      .container {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .demo-card {
+        padding: 8px;
+      }
+
+      .video-shell {
+        border-radius: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">F</span>
+        <span>FarmSeeker</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#demo">Demo</a>
+        <a href="#overview">Overview</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#benchmark">Benchmark</a>
+        <a href="#resources">Resources</a>
+        <a href="#citation">Citation</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="container">
+        <div class="eyebrow">Research Project · Farmland Remote Sensing</div>
+
+        <h1>
+          <span class="gradient-text">FarmSeeker</span>
+        </h1>
+
+        <p class="subtitle">
+          Think with Extra-Image: A Farmland Segmentation Agent Driven by
+          Spatio-Temporal Information Gain
+        </p>
+
+        <p class="authors">
+          <strong>Haiyang Wu</strong> et al. · Central South University
+        </p>
+
+        <div class="button-row">
+          <a
+            class="button primary"
+            href="https://github.com/WithoutOcean/FarmSeeker"
+            target="_blank"
+            rel="noopener"
+          >
+            Code
+          </a>
+
+          <span class="button disabled">Paper · Coming Soon</span>
+          <span class="button disabled">Model · Coming Soon</span>
+          <span class="button disabled">Dataset · Coming Soon</span>
+
+          <a class="button" href="#demo">Video Demo</a>
+        </div>
+
+        <p class="hero-note">
+          Official project page. Paper, checkpoints, and benchmark links will be activated upon release.
+        </p>
+      </div>
+    </header>
+
+    <section id="demo">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-kicker">Video Demo</div>
+          <h2>From ambiguity to evidence-guided refinement</h2>
+          <p>
+            FarmSeeker detects unreliable regions, retrieves the required imagery,
+            and corrects the local farmland mask.
+          </p>
+        </div>
+
+        <div class="card demo-card">
+          <div class="video-shell">
+            <video id="demoVideo" controls muted loop playsinline preload="auto">
+              <source src="assets/videos/FarmSeeker_Demo.mp4" type="video/mp4">
+            </video>
+
+            <div id="videoFallback" class="video-fallback">
+              <div>
+                <div class="play-icon"></div>
+                <h3>FarmSeeker Video Demo</h3>
+                <p>
+                  <code>docs/assets/videos/FarmSeeker_Demo.mp4</code>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-caption">
+            Current image → initial mask → ambiguity perception → evidence query →
+            collaborative reasoning → refined mask
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-kicker">Motivation</div>
+          <h2>Rethinking farmland segmentation</h2>
+          <p>
+            Segmentation ambiguity can originate from insufficient observation,
+            not merely insufficient representation.
+          </p>
+        </div>
+
+        <div class="card abstract-card">
+          Existing farmland segmentation methods typically reason only within the
+          current image and implicitly assume that it contains sufficient visual
+          evidence. However, farmland appearance varies with phenology and spatial
+          context, making instantaneous local observations unreliable in ambiguous
+          scenes. <strong>FarmSeeker reframes segmentation as a dynamic decision
+          process:</strong> it identifies ambiguous regions, determines which
+          external evidence is needed, retrieves additional spatial or temporal
+          imagery, and uses that evidence to refine the mask.
+        </div>
+
+        <div class="paradigm-grid">
+          <article class="paradigm old">
+            <span class="paradigm-label">Conventional paradigm</span>
+            <h3>Think within-image</h3>
+            <p>
+              Enhance representations while remaining restricted to evidence
+              already present in a single observation.
+            </p>
+          </article>
+
+          <div class="versus">versus</div>
+
+          <article class="paradigm new">
+            <span class="paradigm-label">FarmSeeker paradigm</span>
+            <h3>Think with extra-image</h3>
+            <p>
+              Acquire task-relevant spatio-temporal information on demand and
+              reason across observations to resolve ambiguity.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="method">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-kicker">Method</div>
+          <h2>A closed-loop segmentation agent</h2>
+          <p>
+            FarmSeeker answers when extra evidence is needed, what evidence to
+            retrieve, how to acquire it, and how to use it.
+          </p>
+        </div>
+    
+        <div class="card method-figure">
+          <img
+            src="assets/images/FarmSeeker.png"
+            alt="Overview of the FarmSeeker framework"
+          >
+          <div class="figure-caption">
+            Overview of FarmSeeker. The framework performs initial segmentation,
+            ambiguity perception, evidence requirement decision, image retrieval,
+            collaborative reasoning, and local mask refinement in a closed loop.
+          </div>
+        </div>
+    
+        <div class="pipeline">
+          <article class="step">
+            <div class="step-number">01</div>
+            <h3>Initial perception</h3>
+            <p>
+              Generate an initial farmland mask from the current remote-sensing image.
+            </p>
+          </article>
+    
+          <article class="step">
+            <div class="step-number">02</div>
+            <h3>Ambiguity perception</h3>
+            <p>
+              Locate regions where the current observation may not support a reliable decision.
+            </p>
+          </article>
+    
+          <article class="step">
+            <div class="step-number">03</div>
+            <h3>Evidence requirement</h3>
+            <p>
+              Decide whether temporal, spatial, joint, or no additional evidence is required.
+            </p>
+          </article>
+    
+          <article class="step">
+            <div class="step-number">04</div>
+            <h3>Image retrieval</h3>
+            <p>
+              Query aligned multi-temporal imagery or a wider spatial-context observation.
+            </p>
+          </article>
+    
+          <article class="step">
+            <div class="step-number">05</div>
+            <h3>Collaborative refinement</h3>
+            <p>
+              Reason across current and retrieved images, then locally correct the mask with SAM 2.1.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="benchmark">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-kicker">Benchmark</div>
+          <h2>GSFS-Bench for dynamic farmland interpretation</h2>
+          <p>
+            We build GSFS-Bench to evaluate ambiguity perception, evidence selection,
+            and collaborative reasoning under realistic farmland ambiguity.
+          </p>
+        </div>
+    
+        <div class="benchmark-grid">
+          <article class="card benchmark-card">
+            <h3>Scale</h3>
+            <div class="big">10K</div>
+            <p>
+              Evaluation samples cropped to 512×512 from high-resolution remote-sensing imagery.
+            </p>
+          </article>
+    
+          <article class="card benchmark-card">
+            <h3>Resolution</h3>
+            <div class="big">0.5–1 m</div>
+            <p>
+              High-resolution observations suitable for fine-grained farmland interpretation.
+            </p>
+          </article>
+    
+          <article class="card benchmark-card">
+            <h3>Coverage</h3>
+            <div class="big">Global</div>
+            <p>
+              Scenes span multiple major agricultural regions with diverse climates and field patterns.
+            </p>
+          </article>
+    
+          <article class="card benchmark-card">
+            <h3>Evidence Pool</h3>
+            <div class="big">ST</div>
+            <p>
+              Each sample is associated with spatial and temporal evidence pools for on-demand retrieval.
+            </p>
+          </article>
+        </div>
+
+        <div class="card method-figure" style="margin-top: 24px;">
+          <img
+            src="assets/images/GSFS_Bench.png"
+            alt="Overview of GSFS-Bench"
+          >
+          <div class="figure-caption">
+            Illustration of GSFS-Bench, including evaluation samples, ambiguity annotations,
+            and spatio-temporal evidence pools.
+          </div>
+        </div>
+
+        
+        <div class="card benchmark-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Subset</th>
+                <th>Purpose</th>
+                <th>Annotation / Supervision</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>General Evaluation Set</td>
+                <td>Farmland segmentation performance</td>
+                <td>Pixel-level farmland masks</td>
+              </tr>
+              <tr>
+                <td>Ambiguity Perception Subset</td>
+                <td>Evaluate whether the model can localize unreliable regions</td>
+                <td>Reference ambiguity regions</td>
+              </tr>
+              <tr>
+                <td>Tool-Calling Subset</td>
+                <td>Evaluate whether the model requests the correct evidence type</td>
+                <td>Temporal / spatial / none labels</td>
+              </tr>
+              <tr>
+                <td>Collaborative Reasoning Subset</td>
+                <td>Evaluate whether the model can use retrieved images to revise its decision</td>
+                <td>Multi-image reasoning samples</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+    
+    <section id="results">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-kicker">Results</div>
+          <h2>Reliable improvement in ambiguous scenes</h2>
+          <p>
+            Intermediate-capability evaluation and ambiguous-subset results
+            demonstrate the value of on-demand evidence acquisition.
+          </p>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="card metric">
+            <div class="metric-name">Ambiguity F1@0.5</div>
+            <div class="metric-value">60.23%</div>
+            <div class="metric-note">Ambiguity localization</div>
+          </div>
+
+          <div class="card metric">
+            <div class="metric-name">Tool-Calling Accuracy</div>
+            <div class="metric-value">90.79%</div>
+            <div class="metric-note">Evidence selection</div>
+          </div>
+
+          <div class="card metric">
+            <div class="metric-name">Reasoning Accuracy</div>
+            <div class="metric-value">88.72%</div>
+            <div class="metric-note">Multi-image collaboration</div>
+          </div>
+
+          <div class="card metric">
+            <div class="metric-name">Inference Mode</div>
+            <div class="metric-value">On Demand</div>
+            <div class="metric-note">No indiscriminate retrieval</div>
+          </div>
+        </div>
+
+        <div class="card comparison">
+          <table>
+            <thead>
+              <tr>
+                <th>Ambiguous subset</th>
+                <th>Recall</th>
+                <th>IoU</th>
+                <th>Interpretation</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Initial segmentation</td>
+                <td>67.34%</td>
+                <td>63.95%</td>
+                <td>Single-image observation</td>
+              </tr>
+
+              <tr>
+                <td class="best">FarmSeeker</td>
+                <td class="best">83.45%</td>
+                <td class="best">78.62%</td>
+                <td class="best">Evidence-guided correction</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-kicker">Open Source</div>
+          <h2>Code, model, and benchmark</h2>
+          <p>
+            The repository contains the inference pipeline and training framework.
+            Additional assets will be linked as they are released.
+          </p>
+        </div>
+
+        <div class="resources">
+          <article class="card resource">
+            <div class="resource-icon">&lt;/&gt;</div>
+            <h3>Source Code</h3>
+            <p>
+              Inference pipeline, retrieval tools, SAM-based local correction,
+              configuration, and Visual-RFT training code.
+            </p>
+            <a
+              href="https://github.com/WithoutOcean/FarmSeeker"
+              target="_blank"
+              rel="noopener"
+            >
+              Open GitHub repository →
+            </a>
+          </article>
+
+          <article class="card resource">
+            <div class="resource-icon">M</div>
+            <h3>FarmSeeker Model</h3>
+            <p>
+              Task-trained Qwen2.5-VL-7B reasoning engine and the corresponding model card.
+            </p>
+            <span>Checkpoint · Coming soon</span>
+          </article>
+
+          <article class="card resource">
+            <div class="resource-icon">D</div>
+            <h3>GSFS-Bench</h3>
+            <p>
+              Global high-resolution farmland benchmark with ambiguity annotations
+              and spatio-temporal evidence pools.
+            </p>
+            <span>Dataset · Coming soon</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-kicker">Citation</div>
+          <h2>Cite FarmSeeker</h2>
+          <p>
+            The final BibTeX entry will be updated after the paper record becomes public.
+          </p>
+        </div>
+
+        <div class="card citation">
+          <div class="copy-row">
+            <button id="copyButton" class="copy-button" type="button">
+              Copy BibTeX
+            </button>
+          </div>
+
+          <pre id="bibtex">@article{wu2027farmseeker,
+  title   = {Think with Extra-Image: A Farmland Segmentation Agent
+             Driven by Spatio-Temporal Information Gain},
+  author  = {Wu, Haiyang and others},
+  journal = {arXiv preprint},
+  year    = {2027}
+}</pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 FarmSeeker Project · Central South University · Built for GitHub Pages
+    </div>
+  </footer>
+
+  <script>
+    const video = document.getElementById("demoVideo");
+    const fallback = document.getElementById("videoFallback");
+    const videoShell = video.closest(".video-shell");
+
+    const showLoadedVideo = () => {
+      videoShell.classList.add("video-ready");
+      fallback.style.display = "none";
+    };
+
+    video.addEventListener("loadedmetadata", showLoadedVideo);
+    video.addEventListener("loadeddata", showLoadedVideo);
+    video.addEventListener("canplay", showLoadedVideo);
+
+    const copyButton = document.getElementById("copyButton");
+
+    copyButton.addEventListener("click", async () => {
+      const text = document.getElementById("bibtex").innerText;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        copyButton.textContent = "Copied";
+        setTimeout(() => {
+          copyButton.textContent = "Copy BibTeX";
+        }, 1600);
+      } catch (error) {
+        copyButton.textContent = "Select and copy manually";
+      }
+    });
+  </script>
+</body>
+</html>
