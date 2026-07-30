@@ -225,11 +225,12 @@
     }
 
     .section-kicker {
-      margin-bottom: 7px;
+      margin-bottom: 12px;
       color: var(--green);
-      font-size: 13px;
+      font-size: clamp(24px, 3vw, 32px);
       font-weight: 850;
-      letter-spacing: 0.12em;
+      line-height: 1.25;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
@@ -241,9 +242,11 @@
     }
 
     .section-heading p {
-      margin: 13px auto 0;
+      max-width: 900px;
+      margin: 14px auto 0;
       color: var(--muted);
-      font-size: 17px;
+      font-size: clamp(18px, 2vw, 21px);
+      line-height: 1.6;
     }
 
     .card {
@@ -803,7 +806,6 @@
       <div class="container">
         <div class="section-heading">
           <div class="section-kicker">Video Demo</div>
-          <h2>From ambiguity to evidence-guided refinement</h2>
           <p>
             FarmSeeker detects unreliable regions, retrieves the required imagery,
             and corrects the local farmland mask.
@@ -839,7 +841,6 @@
       <div class="container">
         <div class="section-heading">
           <div class="section-kicker">Motivation</div>
-          <h2>Rethinking farmland segmentation</h2>
           <p>
             Segmentation ambiguity can originate from insufficient observation,
             not merely insufficient representation.
@@ -885,7 +886,6 @@
       <div class="container">
         <div class="section-heading">
           <div class="section-kicker">Method</div>
-          <h2>A closed-loop segmentation agent</h2>
           <p>
             FarmSeeker answers when extra evidence is needed, what evidence to
             retrieve, how to acquire it, and how to use it.
@@ -952,7 +952,6 @@
       <div class="container">
         <div class="section-heading">
           <div class="section-kicker">Benchmark</div>
-          <h2>GSFS-Bench for dynamic farmland interpretation</h2>
           <p>
             We build GSFS-Bench to evaluate ambiguity perception, evidence selection,
             and collaborative reasoning under realistic farmland ambiguity.
@@ -1047,7 +1046,6 @@
       <div class="container">
         <div class="section-heading">
           <div class="section-kicker">Results</div>
-          <h2>Reliable improvement in ambiguous scenes</h2>
           <p>
             Intermediate-capability evaluation and ambiguous-subset results
             demonstrate the value of on-demand evidence acquisition.
@@ -1107,56 +1105,6 @@
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
-    </section>
-
-    <section id="resources">
-      <div class="container">
-        <div class="section-heading">
-          <div class="section-kicker">Open Source</div>
-          <h2>Code, model, and benchmark</h2>
-          <p>
-            The repository contains the inference pipeline and training framework.
-            Additional assets will be linked as they are released.
-          </p>
-        </div>
-
-        <div class="resources">
-          <article class="card resource">
-            <div class="resource-icon">&lt;/&gt;</div>
-            <h3>Source Code</h3>
-            <p>
-              Inference pipeline, retrieval tools, SAM-based local correction,
-              configuration, and Visual-RFT training code.
-            </p>
-            <a
-              href="https://github.com/WithoutOcean/FarmSeeker"
-              target="_blank"
-              rel="noopener"
-            >
-              Open GitHub repository →
-            </a>
-          </article>
-
-          <article class="card resource">
-            <div class="resource-icon">M</div>
-            <h3>FarmSeeker Model</h3>
-            <p>
-              Task-trained Qwen2.5-VL-7B reasoning engine and the corresponding model card.
-            </p>
-            <span>Checkpoint · Coming soon</span>
-          </article>
-
-          <article class="card resource">
-            <div class="resource-icon">D</div>
-            <h3>GSFS-Bench</h3>
-            <p>
-              Global high-resolution farmland benchmark with ambiguity annotations
-              and spatio-temporal evidence pools.
-            </p>
-            <span>Dataset · Coming soon</span>
-          </article>
         </div>
       </div>
     </section>
